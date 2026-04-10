@@ -1,0 +1,7 @@
+interface:
+  display_name: "Codex Hook Setup"
+  short_description: "Install and repair Codex prompt hooks"
+  default_prompt: "Use $codex-hook-setup to install or repair a Codex UserPromptSubmit hook with git user name prompt prefixes in this project."
+
+policy:
+  allow_implicit_invocation: true
