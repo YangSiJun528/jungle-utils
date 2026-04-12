@@ -10,7 +10,7 @@
 
 ### 2. `prompt-retro-analysis`
 
-프롬프트 로깅 훅이 남긴 `logs/user-prompts.jsonl`을 CSV와 세션 단위 리포트로 바꿔서 작업을 회고하는 스킬.
+프롬프트 로깅 훅이 남긴 `logs/{username}-prompt-log.jsonl`을 CSV와 세션 단위 리포트로 바꿔서 작업을 회고하는 스킬.
 
 프롬프트 로깅 파일과 Git 커밋 작성자의 커밋 내역을 비교하여 결과물을 반환한다.
 

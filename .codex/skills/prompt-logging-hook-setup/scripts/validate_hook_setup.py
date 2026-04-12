@@ -21,7 +21,7 @@ def main() -> int:
     repo = Path(sys.argv[1]).resolve()
     config_path = repo / ".codex" / "config.toml"
     hooks_path = repo / ".codex" / "hooks.json"
-    log_path = repo / "logs" / "user-prompts.jsonl"
+    log_paths = sorted((repo / "logs").glob("*-prompt-log.jsonl"))
     issues: list[str] = []
     notes: list[str] = []
 
@@ -76,20 +76,23 @@ def main() -> int:
             issues.append("Hook script does not appear to write prompt_prefix")
         if '"prompt_raw"' not in script_text:
             issues.append("Hook script does not appear to preserve prompt_raw")
-        if "user-prompts.jsonl" in script_text:
-            notes.append("Hook script appears to target a user-prompts JSONL log")
+        if "-prompt-log.jsonl" in script_text and "build_log_path" in script_text:
+            notes.append("Hook script appears to target per-user prompt logs")
+        elif "user-prompts.jsonl" in script_text:
+            issues.append("Hook script still targets the legacy shared user-prompts JSONL log")
 
-    if log_path.exists():
+    if log_paths:
+        log_path = log_paths[0]
         try:
             first_line = log_path.read_text(encoding="utf-8").splitlines()[0]
             sample = json.loads(first_line)
         except (IndexError, json.JSONDecodeError, OSError):
-            notes.append("Existing log file could not be sampled safely")
+            notes.append(f"Existing log file could not be sampled safely: {log_path}")
         else:
             if "prompt_prefix" in sample:
-                notes.append("Existing log rows include prompt_prefix")
+                notes.append(f"Existing log rows include prompt_prefix: {log_path}")
             else:
-                notes.append("Existing log rows do not include prompt_prefix yet")
+                notes.append(f"Existing log rows do not include prompt_prefix yet: {log_path}")
 
     print(f"Repository: {repo}")
     print("")

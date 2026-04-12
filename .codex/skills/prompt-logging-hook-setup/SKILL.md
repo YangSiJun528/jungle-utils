@@ -1,6 +1,6 @@
 ---
 name: prompt-logging-hook-setup
-description: Use when setting up, repairing, verifying, or troubleshooting a UserPromptSubmit prompt logging hook in a target repository, including trusted mode checks, hooks.json command wiring, and git user name prompt-prefix logging.
+description: Use when setting up, repairing, verifying, or troubleshooting a UserPromptSubmit prompt logging hook in a target repository, including trusted mode checks, hooks.json command wiring, git user name prompt-prefix logging, and per-user prompt log file names.
 ---
 
 # Prompt Logging Hook Setup
@@ -24,6 +24,7 @@ Use this skill when the user wants to install a UserPromptSubmit prompt logging 
    - `prompt_raw` should preserve the unprefixed user input
    - `prompt` should contain the visible prefixed form
 5. Verify where output is written and whether the parent directory is created.
+   - prompt logs should be per Git user: `logs/{sanitized-git-user-name}-prompt-log.jsonl`
 6. If the user wants a diagnosis, run `scripts/validate_hook_setup.py <repo_path>` first.
 7. If the user wants a fix, prefer the smallest repair:
    - enable `codex_hooks`
@@ -40,7 +41,7 @@ Use this skill when the user wants to install a UserPromptSubmit prompt logging 
 - a valid `.codex/hooks.json`
 - a hook script that accepts stdin JSON and exits safely on malformed payloads
 - a hook script that reads Git `user.name` and stores it as `git_user_name` and `prompt_prefix`
-- a log path inside the target repository, such as `logs/user-prompts.jsonl`
+- a per-user log path inside the target repository, such as `logs/{sanitized-git-user-name}-prompt-log.jsonl`
 - a short troubleshooting note explaining trusted mode
 
 ## Troubleshooting Priorities

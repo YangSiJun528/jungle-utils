@@ -1,6 +1,6 @@
 ---
 name: prompt-retro-analysis
-description: Use when analyzing Codex prompt logs such as logs/user-prompts.jsonl from a target repository into cleaned CSV and markdown retrospective outputs, including git user name prefix evaluation against commit authors, timezone normalization, exclusion filtering, session grouping, and session-based context management assessment.
+description: Use when analyzing Codex prompt logs such as logs/{username}-prompt-log.jsonl from a target repository into cleaned CSV and markdown retrospective outputs, including git user name prefix evaluation against commit authors, timezone normalization, exclusion filtering, session grouping, and session-based context management assessment.
 ---
 
 # Prompt Retro Analysis

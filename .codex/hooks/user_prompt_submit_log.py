@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -11,7 +12,7 @@ from pathlib import Path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-LOG_PATH = REPO_ROOT / "logs" / "user-prompts.jsonl"
+SAFE_FILENAME_RE = re.compile(r"[^\w.-]+", re.UNICODE)
 
 
 def get_git_user_name() -> str:
@@ -31,6 +32,12 @@ def get_git_user_name() -> str:
 
 def build_prefixed_prompt(prefix: str, prompt: str) -> str:
     return f"[{prefix}] {prompt}" if prompt else f"[{prefix}]"
+
+
+def build_log_path(git_user_name: str) -> Path:
+    safe_user_name = SAFE_FILENAME_RE.sub("-", git_user_name).strip("-._")
+    safe_user_name = safe_user_name or "unknown-user"
+    return REPO_ROOT / "logs" / f"{safe_user_name}-prompt-log.jsonl"
 
 
 def main() -> int:
@@ -54,10 +61,11 @@ def main() -> int:
         "prompt_raw": raw_prompt,
         "prompt": build_prefixed_prompt(git_user_name, raw_prompt),
     }
+    log_path = build_log_path(git_user_name)
 
     try:
-        LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
-        with LOG_PATH.open("a", encoding="utf-8") as log_file:
+        log_path.parent.mkdir(parents=True, exist_ok=True)
+        with log_path.open("a", encoding="utf-8") as log_file:
             log_file.write(json.dumps(log_entry, ensure_ascii=False))
             log_file.write("\n")
     except OSError as exc:
