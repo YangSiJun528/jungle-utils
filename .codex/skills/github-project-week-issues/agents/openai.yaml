@@ -1,0 +1,7 @@
+interface:
+  display_name: "GitHub Project Week Issues"
+  short_description: "Create weekly GitHub project issues"
+  default_prompt: "Use $github-project-week-issues to analyze github-projects/week6_issues_complete.csv and add the matching weekly issues to my GitHub Project."
+
+policy:
+  allow_implicit_invocation: true
