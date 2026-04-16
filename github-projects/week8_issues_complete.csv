@@ -31,14 +31,13 @@ title,content
 구현 - tiny서버 - cgi adder 구현,
 테스트 - tiny서버 - telnet으로 tiny의 http 버전 정보 확인,
 테스트 - tiny서버 - 브라우저에서 home.html 요청/응답 확인,
-테스트 - tiny서버 - 브라우저에서 cgi-bin/adder?123&456 요청/응답 확인
+"테스트 - tiny서버 - 브라우저에서 cgi-bin/adder?123&456 요청/응답 확인",
 구현 - proxy서버 - 웹 프록시 (순차적 처리),
 구현 - proxy서버 - 동시병렬 처리,
 구현 - proxy서버 - 캐싱 웹오브젝트,
 테스트 - proxy서버 - PC 네트워크 설정 > 프록시 설정,
 테스트 - proxy서버 - 로컬 > 프록시 > tiny home.html 요청 (성공),
-테스트 - proxy서버 - 원격 프록시 서버 중지후, 로컬 > 프록시 > tiny home.html 요청 (실패),
+"테스트 - proxy서버 - 원격 프록시 서버 중지후, 로컬 > 프록시 > tiny home.html 요청 (실패)",
 테스트 - proxy서버 - 요청 순차적 처리 (basic test) ,
 테스트 - proxy서버 - 요청 동시병렬 처리 (concurrency test) ,
 테스트 - proxy서버 - 요청 캐싱 처리 (cache test) ,
-
